@@ -1,0 +1,1 @@
+SELECT * from lab1.note_stock;

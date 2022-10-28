@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Entry par-rs</title>
+</head>
+<style>
+    button {
+        box-sizing: border-box;
+        padding: 5px 10px;
+        border-radius: 100px;
+        color: #fdcf85;
+        text-decoration: none;
+        border-color: #fdcf85;
+        background-color: rgba(69,70,79, 0.5);
+        font-size: 24px;
+    }
+
+    .menu_items {
+        margin-top: 20px;
+        width: 25%;
+        display: flex;
+        justify-content: space-between;
+        color: #fdcf85;
+    }
+    .menu_item {
+        box-sizing: border-box;
+        padding: 10px 20px;
+        border-radius: 10px;
+        color: inherit;
+        text-decoration: none;
+        background-color: rgba(69,70,79, 0.5);
+        font-size: 24px;
+    }
+</style>
+<body>
+    <form method="post" action="">
+        <input type="text" name="product_name" placeholder='{{placeholder}}'>
+        <button type="submit">Click me</button>
+    </form>
+<div class="menu_items">
+        <a href={{url_for('bp_query.menu')}} class="menu_item">Back to main menu</a>
+    </div>
+</body>
+</html>
