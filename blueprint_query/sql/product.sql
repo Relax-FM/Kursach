@@ -1,0 +1,1 @@
+select * from lab.Library where id_library='$input_product'

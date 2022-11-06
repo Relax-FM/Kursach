@@ -1,1 +1,0 @@
-SELECT a.id_A,a.Year,a.Mark,a.Number,a.Capacity from lab1.automobile as a where a.Free=1;
