@@ -14,7 +14,7 @@
             <div class="menu">
                 <nav class="menu__body">
                     <ul class="menu__list">
-                        <li><a href={{url_for('bp_query.queries')}} class="menu__link">Найти товар</a></li>
+                        <li><a href={{url_for('bp_query.menu_queries')}} class="menu__link">Вернуться в меню запросов</a></li>
                         <li><a href={{url_for('exit_func')}} class="menu__link">Выйти</a></li>
                     </ul>
                 </nav>
@@ -33,7 +33,7 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <div class="reset"><a href="{{url_for('bp_query.queries')}}" class="reset__link">Назад</a></div>
+            <div class="reset"><a href="{{url_for('bp_query.query1')}}" class="reset__link">Назад</a></div>
         </section>
     </div>
 </body>
