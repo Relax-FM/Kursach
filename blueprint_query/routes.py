@@ -20,9 +20,9 @@ def provider_test():
     return 'None'
 
 
-@blueprint_query.route('/queries', methods=['GET', 'POST'])
+@blueprint_query.route('/query1', methods=['GET', 'POST'])
 @group_required
-def queries():
+def query1():
     print(os.path.join(os.path.dirname(__file__)))
     if request.method == 'POST':
         input_product = request.form.get('product_name')
@@ -34,9 +34,15 @@ def queries():
             return render_template('db_result.html', schema=schema, result=product_result)
         else:
             return render_template('not_found.html')
-    return render_template('queries.html')
+    elif request.method == 'GET':
+        return render_template('query1.html')
 
 @blueprint_query.route('/menu_queries')
 @group_required
 def menu_queries():
     return render_template('menu_queries.html')
+
+@blueprint_query.route('/query2')
+@group_required
+def query2():
+    return render_template('query2.html')

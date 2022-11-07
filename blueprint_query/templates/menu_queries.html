@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link type="text/css" href="{{ url_for('static', filename='main/style.css') }}" rel="stylesheet" />
+    <link type="text/css" href="{{ url_for('static', filename='menu_query/style.css') }}" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>Menu queries</title>
 </head>
+<style>
+    .menu_items {
+        margin-top: 40px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        color: #f1e3c9;
+    }
+
+    .menu_item {
+        box-sizing: border-box;
+        margin-left: 40px;
+        padding: 10px 30px;
+        border-radius: 10px;
+        color: inherit;
+        text-decoration: none;
+        background-color: rgba(69,70,79, 0.5);
+        font-size: 34px;
+    }
+
+    .menushka {
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+</style>
 <body>
     <div class="wrapper">
         <section class="header">
@@ -18,9 +48,16 @@
             </div>
         </section>
         <section class="body">
-            <h1 class="title">
-                Добро пожаловать, Вы зашли как сотрудник магазина.
-            </h1>
+            <div class="menushka">
+                <div class="menu_items">
+                    <a href={{url_for('bp_query.query1')}} class="menu_item">Запрос №1</a>
+                    <a href={{url_for('bp_query.query2')}} class="menu_item">Запрос №2</a>
+                </div>
+                <div class="menu_items">
+                    <a href={{url_for('bp_query.query1')}} class="menu_item">Запрос №3</a>
+                    <a href={{url_for('bp_query.query2')}} class="menu_item">Запрос №4</a>
+                </div>
+            </div>
         </section>
     </div>
 </body>
