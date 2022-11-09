@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='db_result/style.css')}}"/>
-    <title>Query1 - Result</title>
+    <title>{{query_numb}} - Result</title>
 </head>
 <body>
     <div class="wrapper">
@@ -33,7 +33,6 @@
                     {% endfor %}
                 </div>
             {% endfor %}
-            <div class="reset"><a href="{{url_for('bp_query.query1')}}" class="reset__link">Назад</a></div>
         </section>
     </div>
 </body>

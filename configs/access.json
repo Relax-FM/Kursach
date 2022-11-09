@@ -1,12 +1,12 @@
 {
-  "typical": [
+  "forwarder": [
     "bp_query"
   ],
-  "admin": [
+  "dispatcher": [
     "blueprint_report",
     "bp_query"
   ],
-  "external": [
-    "blueprint_market"
+  "director": [
+    "blueprint_report"
   ]
 }

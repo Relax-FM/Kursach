@@ -1,0 +1,1 @@
+select n.id_N, n.Date, c.Name, c.Surname, c.Adress, c.Number from lab1.note as n join lab1.client as c on n.N_client = c.id_C where n.Done = 1;
