@@ -1,0 +1,1 @@
+select id_C, Number_Dog, Name, Surname, Number, Adress, Sale, Mass_buy, MKAD from lab1.client where id_C='$input_product';

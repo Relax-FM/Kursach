@@ -3,10 +3,10 @@
     "bp_query"
   ],
   "dispatcher": [
-    "blueprint_report",
+    "bp_report",
     "bp_query"
   ],
   "director": [
-    "blueprint_report"
+    "bp_report"
   ]
 }

@@ -1,0 +1,1 @@
+select id_A, `Year`, Mark, Number, Capacity from lab1.automobile where Free = 1;

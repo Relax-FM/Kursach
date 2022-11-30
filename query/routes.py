@@ -20,7 +20,7 @@ def provider_test():
     return 'None'
 
 
-# @blueprint_query.route('/query1', methods=['GET', 'POST'])
+# @query.route('/query1', methods=['GET', 'POST'])
 # @group_required
 # def query1():
 #     print(os.path.join(os.path.dirname(__file__)))
@@ -88,3 +88,31 @@ def query4():
             return render_template('not_found.html')
     elif request.method == 'GET':
         return render_template('query.html', ph_title="Введите номер заказа")
+
+@blueprint_query.route('/query5', methods=['GET', 'POST'])
+@group_required
+def query5():
+    print(os.path.join(os.path.dirname(__file__)))
+    if request.method == 'POST':
+        input_product = request.form.get('product_name')
+        if input_product:
+            _sql = provider.get('client_info.sql', input_product=input_product)
+            product_result, schema = select(current_app.config['db_config'], _sql)
+            if len(product_result) == 0:
+                return render_template('not_found.html')
+            return render_template('db_result.html', schema=['№', 'Договор №', 'Имя', 'Фамилия', 'Телефон', 'Адресс', 'Скидка', 'Общая масса покупок', 'МКАД'], result=product_result, query_numb="Query5")
+        else:
+            return render_template('not_found.html')
+    elif request.method == 'GET':
+        return render_template('query.html', ph_title="Введите номер клиента")
+
+@blueprint_query.route('/query6', methods=['GET', 'POST'])
+@group_required
+def query6():
+    print(os.path.join(os.path.dirname(__file__)))
+    _sql = provider.get('free_cars.sql')
+    product_result, schema = select(current_app.config['db_config'], _sql)
+    if len(product_result) == 0:
+        return render_template('not_found.html')
+    return render_template('db_result.html', schema=['№', 'Год', 'Марка', 'Гос.Номер', 'Объем'], result=product_result, query_numb="Query6")
+

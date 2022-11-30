@@ -129,10 +129,10 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid rgb(15, 95, 136);
 }
 .search-form__input[type=text] {
-  color: #fff;
+  color: #000000;
   padding-left: 30px;
   font-size: 20px;
-  background: rgba(173, 165, 165, 0.45);
+  background: rgb(255, 255, 255);
 }
 .search-form__input:focus {
   border: 3px solid rgba(15, 95, 136, 0.45);
