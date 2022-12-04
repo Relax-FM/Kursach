@@ -42,7 +42,7 @@ def start_report():
 def create_rep1():
     if request.method == 'GET':
         print("GET_create")
-        return render_template('report_create.html')
+        return render_template('report_create.html', name_rep="продаже товаров")
     else:
         print(current_app.config['db_config'])
         print("POST_create")
@@ -58,7 +58,7 @@ def create_rep1():
             else:
                 res = call_proc(current_app.config['db_config'], 'product_report', rep_month, rep_year)
                 print('res=', res)
-                return render_template('report_created.html', rep_month=rep_month, rep_year=rep_year)
+                return render_template('report_created.html', rep_month=rep_month, rep_year=rep_year, name_rep="продаже товаров")
         else:
             return "Repeat input"
 
@@ -67,7 +67,7 @@ def create_rep1():
 @group_required
 def view_rep1():
     if request.method == 'GET':
-        return render_template('view_rep.html')
+        return render_template('view_rep.html', name_rep='продаже товаров')
     else:
         rep_month = request.form.get('input_month')
         rep_year = request.form.get('input_year')
@@ -83,14 +83,47 @@ def view_rep1():
         else:
             return "Repeat input"
 
-@blueprint_report.route('/create_rep2')
+@blueprint_report.route('/create_rep2', methods=['GET', 'POST'])
 @group_required
 def create_rep2():
-    print("GET_create2")
-    return "Вы создаете Отчёт 2"
+    if request.method == 'GET':
+        print("GET_create")
+        return render_template('report_create.html', name_rep="кол-ве доставок")
+    else:
+        print(current_app.config['db_config'])
+        print("POST_create")
+        rep_month = request.form.get('input_month')
+        rep_year = request.form.get('input_year')
+        print("Loading...")
+        if rep_year and rep_month:
+            _sql = provider.get('check_rep2.sql', in_year=rep_year, in_month=rep_month)
+            product_result, schema = select1(current_app.config['db_config'], _sql)
+            print(product_result)
+            if (product_result[0][0] > 0):
+                return "Такой отчёт уже существует"
+            else:
+                res = call_proc(current_app.config['db_config'], 'delivery_report', rep_month, rep_year)
+                print('res=', res)
+                return render_template('report_created.html', rep_month=rep_month, rep_year=rep_year, name_rep="кол-ве доставок")
+        else:
+            return "Repeat input"
 
-@blueprint_report.route('/view_rep2')
+@blueprint_report.route('/view_rep2', methods=['GET', 'POST'])
 @group_required
 def view_rep2():
-    print("GET_view2")
-    return "Вы просматриваете Отчёт 2"
+    if request.method == 'GET':
+        return render_template('view_rep.html', name_rep="кол-ве доставок")
+    else:
+        rep_month = request.form.get('input_month')
+        rep_year = request.form.get('input_year')
+        print(rep_month)
+        print(rep_year)
+        if rep_year and rep_month:
+            _sql = provider.get('rep2.sql', in_year=rep_year, in_month=rep_month)
+            product_result, schema = select(current_app.config['db_config'], _sql)
+            if product_result:
+                return render_template('result_rep1.html', schema=["№", "Кол-во", "Месяц", "Год"], result=product_result, rep_month=rep_month, rep_year=rep_year)
+            else:
+                return "Такой отчёт не был создан"
+        else:
+            return "Repeat input"
