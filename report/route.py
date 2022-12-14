@@ -1,5 +1,5 @@
 from flask import *
-from database.operations import select, call_proc, select1
+from database.operations import select, call_proc
 from access import login_required, group_required
 from database.sql_provider import SQLProvider
 import os
@@ -11,8 +11,8 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 
 
 report_list = [
-    {'rep_name':'Отчёт 1 ', 'rep_id':'1'},
-    {'rep_name':'Отчёт 2 ', 'rep_id':'2'}
+    {'rep_name':'Отчёт о покупках ', 'rep_id':'1'},
+    {'rep_name':'Отчёт о доставках ', 'rep_id':'2'}
 ]
 
 
@@ -42,7 +42,7 @@ def start_report():
 def create_rep1():
     if request.method == 'GET':
         print("GET_create")
-        return render_template('report_create.html', name_rep="продаже товаров")
+        return render_template('report_create.html', name_rep="продаже товаров", title='Отчет 1')
     else:
         print(current_app.config['db_config'])
         print("POST_create")
@@ -51,7 +51,7 @@ def create_rep1():
         print("Loading...")
         if rep_year and rep_month:
             _sql = provider.get('check_rep1.sql', in_year=rep_year, in_month=rep_month)
-            product_result, schema = select1(current_app.config['db_config'], _sql)
+            product_result, schema = select(current_app.config['db_config'], _sql)
             print(product_result)
             if (product_result[0][0] > 0):
                 return "Такой отчёт уже существует"
@@ -77,7 +77,7 @@ def view_rep1():
             _sql = provider.get('rep1.sql', in_year=rep_year, in_month=rep_month)
             product_result, schema = select(current_app.config['db_config'], _sql)
             if product_result:
-                return render_template('result_rep1.html', schema=["№", "Продукт №", "Название", "Кол-во", "Месяц", "Год"], result=product_result, rep_month=rep_month, rep_year=rep_year)
+                return render_template('result_rep1.html', schema=["№", "Продукт №", "Название", "Кол-во"], result=product_result, rep_month=rep_month, rep_year=rep_year)
             else:
                 return "Такой отчёт не был создан"
         else:
@@ -88,7 +88,7 @@ def view_rep1():
 def create_rep2():
     if request.method == 'GET':
         print("GET_create")
-        return render_template('report_create.html', name_rep="кол-ве доставок")
+        return render_template('report_create.html', name_rep="кол-ве доставок", title='Отчет 2')
     else:
         print(current_app.config['db_config'])
         print("POST_create")
@@ -97,7 +97,7 @@ def create_rep2():
         print("Loading...")
         if rep_year and rep_month:
             _sql = provider.get('check_rep2.sql', in_year=rep_year, in_month=rep_month)
-            product_result, schema = select1(current_app.config['db_config'], _sql)
+            product_result, schema = select(current_app.config['db_config'], _sql)
             print(product_result)
             if (product_result[0][0] > 0):
                 return "Такой отчёт уже существует"
@@ -122,7 +122,7 @@ def view_rep2():
             _sql = provider.get('rep2.sql', in_year=rep_year, in_month=rep_month)
             product_result, schema = select(current_app.config['db_config'], _sql)
             if product_result:
-                return render_template('result_rep1.html', schema=["№", "Кол-во", "Месяц", "Год"], result=product_result, rep_month=rep_month, rep_year=rep_year)
+                return render_template('result_rep1.html', schema=["№", "Кол-во"], result=product_result, rep_month=rep_month, rep_year=rep_year)
             else:
                 return "Такой отчёт не был создан"
         else:

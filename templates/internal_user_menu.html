@@ -11,8 +11,10 @@
             <div class="menu">
                 <nav class="menu__body">
                     <ul class="menu__list">
-                        <li><a href={{url_for('bp_query.menu_queries')}} class="menu__link">Меню запросов</a></li>
-                        <li><a href={{url_for('bp_report.start_report')}} class="menu__link">Меню репортов</a></li>
+                        <li><a href={{url_for('bp_query.menu_queries')}} class="menu__link">Запросы</a></li>
+                        <li><a href={{url_for('bp_report.start_report')}} class="menu__link">Отчёты</a></li>
+                        <li><a href={{url_for('bp_orders.start_page')}} class="menu__link">Заявки</a></li>
+                        <li><a href={{url_for('bp_edit.show_all_products')}} class="menu__link">Редактирование</a></li>
                         <li><a href={{url_for('exit_func')}} class="menu__link">Выйти</a></li>
                     </ul>
                 </nav>

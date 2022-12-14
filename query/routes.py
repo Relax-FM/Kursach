@@ -20,22 +20,6 @@ def provider_test():
     return 'None'
 
 
-# @query.route('/query1', methods=['GET', 'POST'])
-# @group_required
-# def query1():
-#     print(os.path.join(os.path.dirname(__file__)))
-#     if request.method == 'POST':
-#         input_product = request.form.get('product_name')
-#         if input_product:
-#             _sql = provider.get('product.sql', input_product=input_product)
-#             product_result, schema = select(current_app.config['db_config'], _sql)
-#             if len(product_result) == 0:
-#                 return render_template('not_found.html')
-#             return render_template('db_result.html', schema=schema, result=product_result)
-#         else:
-#             return render_template('not_found.html')
-#     elif request.method == 'GET':
-#         return render_template('query.html')
 
 @blueprint_query.route('/menu_queries')
 @group_required
@@ -46,17 +30,17 @@ def menu_queries():
 @group_required
 def query1():
     print(os.path.join(os.path.dirname(__file__)))
-    _sql = provider.get('check_stock.sql')
+    _sql = provider.get('query1.sql')
     product_result, schema = select(current_app.config['db_config'], _sql)
     if len(product_result) == 0:
         return render_template('not_found.html')
-    return render_template('db_result.html', schema=['Номер товара', 'Масса', 'Количество', 'Наименование'], result=product_result, query_numb="Query1")
+    return render_template('db_result.html', schema=['Номер товара', 'Масса', 'Количество', 'Наименование', 'Цена'], result=product_result, query_numb="Query1")
 
 @blueprint_query.route('/query2')
 @group_required
 def query2():
     print(os.path.join(os.path.dirname(__file__)))
-    _sql = provider.get('free_delivery.sql')
+    _sql = provider.get('query2.sql')
     product_result, schema = select(current_app.config['db_config'], _sql)
     if len(product_result) == 0:
         return render_template('not_found.html')
@@ -66,7 +50,7 @@ def query2():
 @group_required
 def query3():
     print(os.path.join(os.path.dirname(__file__)))
-    _sql = provider.get('end_delivery.sql')
+    _sql = provider.get('query3.sql')
     product_result, schema = select(current_app.config['db_config'], _sql)
     if len(product_result) == 0:
         return render_template('not_found.html')
@@ -79,7 +63,7 @@ def query4():
     if request.method == 'POST':
         input_product = request.form.get('product_name')
         if input_product:
-            _sql = provider.get('delivery_details.sql', input_product=input_product)
+            _sql = provider.get('query4.sql', input_product=input_product)
             product_result, schema = select(current_app.config['db_config'], _sql)
             if len(product_result) == 0:
                 return render_template('not_found.html')
@@ -87,7 +71,7 @@ def query4():
         else:
             return render_template('not_found.html')
     elif request.method == 'GET':
-        return render_template('query.html', ph_title="Введите номер заказа")
+        return render_template('query.html', ph_title="Введите номер заказа", title_name='Query4')
 
 @blueprint_query.route('/query5', methods=['GET', 'POST'])
 @group_required
@@ -96,7 +80,7 @@ def query5():
     if request.method == 'POST':
         input_product = request.form.get('product_name')
         if input_product:
-            _sql = provider.get('client_info.sql', input_product=input_product)
+            _sql = provider.get('query5.sql', input_product=input_product)
             product_result, schema = select(current_app.config['db_config'], _sql)
             if len(product_result) == 0:
                 return render_template('not_found.html')
@@ -104,13 +88,13 @@ def query5():
         else:
             return render_template('not_found.html')
     elif request.method == 'GET':
-        return render_template('query.html', ph_title="Введите номер клиента")
+        return render_template('query.html', ph_title="Введите номер клиента", title_name='Query5')
 
 @blueprint_query.route('/query6', methods=['GET', 'POST'])
 @group_required
 def query6():
     print(os.path.join(os.path.dirname(__file__)))
-    _sql = provider.get('free_cars.sql')
+    _sql = provider.get('query6.sql')
     product_result, schema = select(current_app.config['db_config'], _sql)
     if len(product_result) == 0:
         return render_template('not_found.html')

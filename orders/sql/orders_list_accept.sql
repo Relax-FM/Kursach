@@ -1,0 +1,1 @@
+update lab1.note set `Done` = 1, N_person = '$user_id' where (id_N='$order_id');

@@ -1,1 +1,1 @@
-select * from lab1.product_report where rep_year = '$in_year' and rep_month = '$in_month';
+select rep_id, prod_id, prod_name, prod_num from lab1.product_report where rep_year = '$in_year' and rep_month = '$in_month';

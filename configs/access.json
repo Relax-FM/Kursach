@@ -4,9 +4,14 @@
   ],
   "dispatcher": [
     "bp_report",
-    "bp_query"
+    "bp_query",
+    "bp_edit",
+    "bp_orders"
   ],
   "director": [
     "bp_report"
+  ],
+  "external": [
+    "bp_market"
   ]
 }

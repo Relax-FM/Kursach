@@ -1,0 +1,1 @@
+select prod_id, prod_name from lab1.note_stock;

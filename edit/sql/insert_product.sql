@@ -1,0 +1,1 @@
+insert into lab1.note_stock (prod_name, prod_measure, prod_price, `Col-vo`) values ('$prod_name', '$prod_measure', '$prod_price', 1000);

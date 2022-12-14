@@ -1,0 +1,20 @@
+{% macro render_item(order) %}
+
+<div style='border-style: solid; border-color: #000000; margin: 5px'>
+    <p>
+        <span>
+            <b>Номер доставки:</b> {{ order['id_N'] }}
+        </span><br>
+        <span>
+            <b>Адресс:</b> {{ order['Adress'] }}
+        </span><br>
+
+        <div>
+            <form action="" method="post">
+                <input type="hidden" name="order_id" value="{{order['id_N']}}">
+                <button type="submit" name="action" value="1">Взять заказ</button>
+            </form>
+        </div>
+    </p>
+</div>
+{% endmacro %}
