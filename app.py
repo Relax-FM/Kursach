@@ -22,7 +22,7 @@ app.register_blueprint(blueprint_orders, url_prefix='/orders')
 
 app.config['db_config'] = json.load(open('configs/db.json'))
 app.config['access_config'] = json.load(open('configs/access.json'))
-
+app.config['cache_config'] = json.load(open('configs/cache.json'))
 
 @app.route('/')
 @login_required

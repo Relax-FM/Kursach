@@ -23,6 +23,7 @@ report_url = {
 
 
 @blueprint_report.route('/', methods=['GET', 'POST'])
+@group_required
 def start_report():
     if request.method == 'GET':
         return render_template('menu_report.html', report_list=report_list)

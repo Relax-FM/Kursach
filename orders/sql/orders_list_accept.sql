@@ -1,1 +1,1 @@
-update lab1.note set `Done` = 1, N_person = '$user_id' where (id_N='$order_id');
+update lab1.note set `Done` = 1, N_person = '$user_id', N_automobile = '$car_id' where (id_N='$order_id');

@@ -1,0 +1,1 @@
+select p.car_id from lab1.person as p join lab1.internal_user as iu on iu.person_id = p.id_P where iu.user_id='$user_id';

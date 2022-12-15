@@ -1,8 +1,5 @@
 from flask import Blueprint, render_template, request, session, current_app, url_for
-from werkzeug.utils import redirect
 from database.sql_provider import SQLProvider
-from database.connection import UseDatabase
-import datetime
 import os
 from access import group_required
 from database.operations import select, select_dict, insert, update
@@ -19,8 +16,6 @@ def start_page():
         sql = provider.get('orders_list.sql')
         orders = select_dict(db_config, sql)
         print(orders)
-        # info_items = session.get('info_items', {})
-        # print("info_items1 : ", info_items)
         return render_template('orders_list.html', orders=orders)
     else:
         action = request.form.get('action')
@@ -28,8 +23,13 @@ def start_page():
         order_id = request.form['order_id']
         print("order_id : ", order_id)
         user_id = session.get('user_id')
+        sql1 = provider.get('get_car.sql', user_id=user_id)
+        car_id = select_dict(db_config, sql1)
+        car_id = car_id[0]
+        car_id = car_id['car_id']
+        print("car_id : ", car_id)
         if int(action) == 1:
-            sql = provider.get('orders_list_accept.sql', order_id=order_id, user_id=user_id)
+            sql = provider.get('orders_list_accept.sql', order_id=order_id, user_id=user_id, car_id=car_id)
             items = update(db_config, sql)
             return render_template('orders_accept.html', order_id=order_id)
         else:

@@ -6,6 +6,7 @@ import datetime
 import os
 from access import external_required
 from database.operations import select, select_dict, insert
+from cache.wrapper import fetch_from_cache
 
 blueprint_market = Blueprint('bp_market', __name__, template_folder='templates')
 provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
@@ -15,21 +16,23 @@ provider = SQLProvider(os.path.join(os.path.dirname(__file__), 'sql'))
 @external_required
 def order_index():
     db_config = current_app.config['db_config']
-
+    cache_config = current_app.config['cache_config']
+    cached_select = fetch_from_cache('all_items_cached', cache_config)(select_dict)
+    print('cashed_select=', cached_select)
     if request.method == 'GET':
         sql = provider.get('product_list.sql')
-        items = select_dict(db_config, sql)
+        items = cached_select(db_config, sql)
         basket_items = session.get('basket', {})
-        print(items)
-        print("basket_items : ", basket_items)
+        # print(items)
+        # print("basket_items : ", basket_items)
         return render_template('product_list.html', items=items, basket=basket_items)
     else:
         action = request.form.get('action')
-        print('action:', action)
+        # print('action:', action)
         prod_id = request.form['prod_id']
-        print("prod_id : ", prod_id)
+        # print("prod_id : ", prod_id)
         prod_col = request.form.get('prod_add_col')
-        print("prod_col : ", prod_col)
+        # print("prod_col : ", prod_col)
         flag = False
         if prod_col is None and int(action) == 2:
             prod_col = 1
@@ -37,7 +40,7 @@ def order_index():
         if int(action) <= 0 or int(prod_col) <= 0:
             delete_from_basket(prod_id)
             return redirect(url_for('bp_market.order_index'))
-        print("prod_col 1: ", prod_col)
+        # print("prod_col 1: ", prod_col)
         sql = provider.get('product_list.sql')
         items = select_dict(db_config, sql)
 
@@ -47,19 +50,19 @@ def order_index():
 
 def delete_from_basket(prod_id: str):
     curr_basket = session.get('basket', {})
-    print("curr_basket1 : ", curr_basket)
+    # print("curr_basket1 : ", curr_basket)
     curr_basket.pop(prod_id, 4000)
     curr_basket = session.get('basket', {})
-    print("curr_basket2 : ", curr_basket)
+    # print("curr_basket2 : ", curr_basket)
     return True
 
 def add_to_basket(prod_id: str, items:dict, prod_col: str, flag:bool):
     item_description = [item for item in items if str(item['prod_id']) == str(prod_id)]
-    print("Item_description before = ", item_description)
+    # print("Item_description before = ", item_description)
     item_description = item_description[0]
-    print("Item description after : ", item_description)
+    # print("Item description after : ", item_description)
     curr_basket = session.get('basket', {})
-    print("curr_basket : ", curr_basket)
+    # print("curr_basket : ", curr_basket)
     col = int(prod_col)
 
     if prod_id in curr_basket:
@@ -67,7 +70,7 @@ def add_to_basket(prod_id: str, items:dict, prod_col: str, flag:bool):
             print('good')
             curr_basket[prod_id]['amount'] = curr_basket[prod_id]['amount'] + col
         else:
-            print('zhopa')
+            print('zho')
             curr_basket[prod_id]['amount'] = col
     else:
         print('not good')

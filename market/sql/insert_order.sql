@@ -1,1 +1,1 @@
-insert lab1.note values(NULL, '$order_date', '$user_id', 11, 21, 0, 0);
+insert lab1.note values(NULL, '$order_date', '$user_id', Null, Null, 0, 0);

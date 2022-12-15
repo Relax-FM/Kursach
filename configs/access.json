@@ -1,12 +1,12 @@
 {
   "forwarder": [
-    "bp_query"
+    "bp_query",
+    "bp_orders"
   ],
   "dispatcher": [
     "bp_report",
     "bp_query",
-    "bp_edit",
-    "bp_orders"
+    "bp_edit"
   ],
   "director": [
     "bp_report"
